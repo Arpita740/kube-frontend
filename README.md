@@ -71,3 +71,21 @@ export default defineConfig([
   },
 ])
 ```
+
+
+
+ sudo yum update -y
+    2  sudo yum install docker -y
+    3  git clone https://github.com/Arpita740/kube-frontend.git
+    4  sudo yum install git -y
+    5  git clone https://github.com/Arpita740/kube-frontend.git
+    6  cd kube-frontend/
+    7  ls
+    8  cat Dockerfile
+    9  sudo docker build -t frontend .
+   10  sudo systemctl start docker
+   11  sudo docker build -t frontend .
+   12  sudo docker images
+   13  sudo docker run -dt -p 8080:80 --name frontendContainer frontend
+   14  sudo docker ps
+   15  history
