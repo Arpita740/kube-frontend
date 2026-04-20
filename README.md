@@ -1,91 +1,140 @@
-# React + TypeScript + Vite
+🚀 Kube Credential – Full Stack Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📌 Project Overview
 
-Currently, two official plugins are available:
+This project is a full-stack credential issuance and verification system built using modern web technologies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🎨 Frontend
+React
+TypeScript
+Vite
+⚙️ Backend
+Node.js
+TypeScript
+Express
+Microservices architecture
+🐳 DevOps & Deployment
+Docker (Backend containerization)
+AWS EC2 (Frontend hosting)
+🔧 Features
+Issue credentials
+Verify credentials
+Microservice-based backend
+Lightweight JSON-based persistence
+Dockerized backend services
+🏗️ Architecture
+kube-credential/
+┣ backend/
+┃ ┣ issuance-service/         # Port 4000
+┃ ┣ verification-service/     # Port 5000
+┃ ┗ shared-db/
+┃   ┗ issued_credentials.json
+┣ docker-compose.yml
+┣ frontend/
+┃ ┗ frontend/
+┃   ┗ src/
+┗ package.json
+⚙️ Tech Stack
+Frontend
+React
+TypeScript
+Vite
+Backend
+Node.js
+TypeScript
+Express
+DevOps
+Docker
+AWS EC2
+🧠 Design Decisions
+JSON file used as a lightweight database (free-tier friendly)
+Microservices architecture for scalability
+Docker used for containerization
+Backend runs locally (as per assignment scope)
+Frontend hosted on AWS EC2
+Worker IDs simulate distributed processing
+🚀 Getting Started
+🔹 Run Backend (Locally)
 
-## React Compiler
+Issuance Service
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+cd kube-credential/backend/issuance-service
+npm install
+npm run dev
 
-## Expanding the ESLint configuration
+Verification Service
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+cd kube-credential/backend/verification-service
+npm install
+npm run dev
+🔹 Run Frontend
+cd kube-credential/frontend/frontend
+npm install
+npm run dev
+🧪 Unit Testing
+npm test
+🐳 Docker Setup (Backend)
+Issuance Service
+cd backend/issuance-service
+docker build -t kube-credential-issuance-service .
+docker run -d -p 4000:4000 \
+-v ${PWD}/../shared-db:/app/../shared-db \
+--name issuance-service \
+kube-credential-issuance-service
+Verification Service
+cd backend/verification-service
+docker build -t kube-credential-verification-service .
+docker run -d -p 5000:5000 \
+-v ${PWD}/../shared-db:/app/../shared-db \
+--name verification-service \
+kube-credential-verification-service
+☁️ AWS EC2 Deployment (Frontend)
+sudo yum update -y
+sudo yum install docker -y
+sudo yum install git -y
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+git clone https://github.com/Arpita740/kube-frontend.git
+cd kube-frontend
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+sudo systemctl start docker
+sudo docker build -t frontend .
+sudo docker run -dt -p 8080:80 --name frontendContainer frontend
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+sudo docker ps
+📊 Project Status
+Requirement	Status
+Two Node.js (TypeScript) APIs	✅ Done
+React (TypeScript) Frontend	✅ Done
+JSON-based storage	✅ Done
+Independent Docker containers	✅ Done
+Cloud hosting (Frontend on AWS)	✅ Done
+Backend hosting	❌ Local only
+Unit testing	✅ Done
+Documentation	✅ Done
+📝 Notes
+Frontend is publicly accessible via AWS EC2
+Backend runs locally using Docker containers
+Shared JSON file is mounted using Docker volumes
+Designed for simplicity and clarity over production complexity
+⚡ React + Vite Notes
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This project uses Vite for fast development with HMR.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Plugins Used
+@vitejs/plugin-react
+@vitejs/plugin-react-swc (optional)
+ESLint Improvements
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+For production, consider enabling:
 
+Type-aware linting
+React-specific lint rules
+📌 Future Improvements
+Deploy backend to cloud (AWS/GCP)
+Replace JSON DB with MongoDB/PostgreSQL
+Add authentication & authorization
+Kubernetes deployment
+🙌 Submission
 
-
- sudo yum update -y
-    2  sudo yum install docker -y
-    3  git clone https://github.com/Arpita740/kube-frontend.git
-    4  sudo yum install git -y
-    5  git clone https://github.com/Arpita740/kube-frontend.git
-    6  cd kube-frontend/
-    7  ls
-    8  cat Dockerfile
-    9  sudo docker build -t frontend .
-   10  sudo systemctl start docker
-   11  sudo docker build -t frontend .
-   12  sudo docker images
-   13  sudo docker run -dt -p 8080:80 --name frontendContainer frontend
-   14  sudo docker ps
-   15  history
+Submitted by:
+Arpita Sanya
